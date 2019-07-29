@@ -13,6 +13,47 @@ class MovieCard extends StatelessWidget {
     var repo = ImageRepo.instance();
     var moviePoster = repo.buildImageUrl(movie.poster_path);
     print("image = $moviePoster");
-    return CachedNetworkImage(imageUrl: moviePoster);
+    return Card(
+      clipBehavior: Clip.antiAlias,
+      child: IntrinsicHeight(
+        child: Stack(
+          fit: StackFit.passthrough,
+          children: <Widget>[
+            CachedNetworkImage(
+              imageUrl: moviePoster,
+            ),
+            Container(
+              child: Column(
+                children: <Widget>[
+                  Container(
+                    padding: EdgeInsets.all(15),
+                    color: Colors.white60,
+                    child: Row(
+                      children: <Widget>[
+                        Text(
+                          movie.title,
+                        ),
+                        Spacer(),
+                        Text(
+                          movie.popularity.toString(),
+                        ),
+                      ],
+                    ),
+                  ),
+                  Spacer(),
+                  Container(
+                    color: Colors.white60,
+                    padding: EdgeInsets.all(15),
+                    child: Text(
+                      movie.overview,
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
   }
 }
