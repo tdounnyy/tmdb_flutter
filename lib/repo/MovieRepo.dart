@@ -22,4 +22,10 @@ class MovieRepo {
     var jsonString = await rootBundle.loadString('assets/movie_page.json');
     return MovieResponse.fromJson(jsonDecode(jsonString));
   }
+
+  MovieRepo._private();
+
+  static final MovieRepo _instance = MovieRepo._private();
+
+  factory MovieRepo.instance() => _instance;
 }

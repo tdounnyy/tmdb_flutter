@@ -55,7 +55,7 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   void initState() {
     super.initState();
-    _movieRepo = new MovieRepo();
+    _movieRepo = MovieRepo.instance();
   }
 
   void _refreshMovies() async {

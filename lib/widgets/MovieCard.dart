@@ -10,7 +10,7 @@ class MovieCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var repo = new ImageRepo();
+    var repo = ImageRepo.instance();
     var moviePoster = repo.buildImageUrl(movie.poster_path);
     print("image = $moviePoster");
     return CachedNetworkImage(imageUrl: moviePoster);

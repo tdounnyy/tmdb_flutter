@@ -12,4 +12,10 @@ class ImageRepo {
   String buildImageUrl(String filePath) {
     return "$REMOTE_IMAGE_REPO/$POSTER_SIZE$filePath?api_key=${C.API_KEY}";
   }
+
+  static final ImageRepo _instance = ImageRepo._private();
+
+  ImageRepo._private();
+
+  factory ImageRepo.instance() => _instance;
 }
