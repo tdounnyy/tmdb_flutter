@@ -5,35 +5,35 @@ class Movie {
   bool adult;
   String overview;
   String release_date;
-  List<int> genre_ids;
-  int id;
+  List<num> genre_ids;
+  num id;
   String original_title;
   String original_language;
   String title;
   String backdrop_path;
-  int popularity;
-  int vote_count;
+  num popularity;
+  num vote_count;
   bool video;
-  int vote_average;
+  num vote_average;
 
   Movie();
 
   factory Movie.fromJson(Map<String, dynamic> json) {
     return Movie()
       ..poster_path = json["poster_path"]
-      ..adult = json["adult"].toLowerCase() == 'true'
+      ..adult = json["adult"]
       ..overview = json["overview"]
       ..release_date = json["release_date"]
-      ..genre_ids = List.of(json["genre_ids"]).map((i) => int.parse(i)).toList()
-      ..id = int.parse(json["id"])
+      ..genre_ids = List.of(json["genre_ids"]).map((i) => i as int).toList()
+      ..id = json["id"]
       ..original_title = json["original_title"]
       ..original_language = json["original_language"]
       ..title = json["title"]
       ..backdrop_path = json["backdrop_path"]
-      ..popularity = int.parse(json["popularity"])
-      ..vote_count = int.parse(json["vote_count"])
-      ..video = json["video"].toLowerCase() == 'true'
-      ..vote_average = int.parse(json["vote_average"]);
+      ..popularity = json["popularity"]
+      ..vote_count = json["vote_count"]
+      ..video = json["video"]
+      ..vote_average = json["vote_average"];
   }
 
   Map<String, dynamic> toJson() {
