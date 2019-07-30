@@ -4,7 +4,7 @@ import 'package:tmdb/entity/entities.dart';
 import 'package:tmdb/repo/repos.dart';
 
 class MovieCard extends StatelessWidget {
-  Movie movie;
+  final Movie movie;
 
   MovieCard(this.movie);
 
