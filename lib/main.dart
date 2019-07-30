@@ -77,15 +77,27 @@ class _MyHomePageState extends State<MyHomePage> {
         // the App.build method, and use it to set our appbar title.
         title: Text(widget.title),
       ),
-      body: Center(
+      body: Container(
           // Center is a layout widget. It takes a single child and positions it
           // in the middle of the parent.
-          child: _movies == null ? null : MovieCard(_movies[1])),
+          child: _movies == null
+              ? EmptyView()
+              : ListView.builder(itemBuilder: _movieListBuilder)),
       floatingActionButton: FloatingActionButton(
         onPressed: _refreshMovies,
         tooltip: 'Increment',
-        child: Icon(Icons.add),
+        child: Icon(Icons.refresh),
       ), // This trailing comma makes auto-formatting nicer for build methods.
+    );
+  }
+
+  Widget _movieListBuilder(BuildContext context, int index) {
+    if (index >= _movies.length) {
+      return null;
+    }
+    return Container(
+      child: MovieCard(_movies[index]),
+      color: Colors.blue,
     );
   }
 }

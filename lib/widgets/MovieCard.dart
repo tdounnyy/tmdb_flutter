@@ -20,6 +20,7 @@ class MovieCard extends StatelessWidget {
           fit: StackFit.passthrough,
           children: <Widget>[
             CachedNetworkImage(
+              fit: BoxFit.cover,
               imageUrl: moviePoster,
             ),
             Container(
