@@ -4,6 +4,15 @@ import 'entity/entities.dart';
 import 'repo/repos.dart';
 import 'widgets/widgets.dart';
 
+/**
+ * TODO
+ * - movie detail
+ * - like movie
+ * - movie gallery
+ * - People page
+ * - Search movie & people
+ * - Search filter
+ */
 void main() => runApp(MyApp());
 
 class MyApp extends StatelessWidget {
