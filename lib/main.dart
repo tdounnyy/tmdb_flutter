@@ -21,7 +21,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'TMDB',
       theme: ThemeData(
-        primarySwatch: Colors.blue,
+        primarySwatch: Colors.green,
       ),
       home: MyHomePage(title: 'TMDB Popular'),
     );
@@ -77,7 +77,7 @@ class _MyHomePageState extends State<MyHomePage> {
     }
     return Container(
       child: MovieCard(_movies[index]),
-      color: Colors.blue,
+      color: Colors.green,
     );
   }
 }
