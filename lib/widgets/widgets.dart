@@ -1,3 +1,4 @@
 export 'EmptyView.dart';
 export 'MovieCard.dart';
 export 'MovieDetailPage.dart';
+export 'PopularMovieList.dart';
