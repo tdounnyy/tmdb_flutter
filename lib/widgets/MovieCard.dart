@@ -5,8 +5,9 @@ import 'package:tmdb/repo/repos.dart';
 
 class MovieCard extends StatelessWidget {
   final Movie movie;
+  final Function topCallback;
 
-  MovieCard(this.movie);
+  MovieCard(this.movie, this.topCallback);
 
   @override
   Widget build(BuildContext context) {
@@ -50,6 +51,13 @@ class MovieCard extends StatelessWidget {
                     ),
                   ),
                 ],
+              ),
+            ),
+            Material(
+              color: Colors.transparent,
+              child: InkWell(
+                // Card ripple HACK
+                onTap: () => topCallback(movie),
               ),
             ),
           ],

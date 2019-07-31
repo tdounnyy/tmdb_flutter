@@ -76,8 +76,12 @@ class _MyHomePageState extends State<MyHomePage> {
       return null;
     }
     return Container(
-      child: MovieCard(_movies[index]),
+      child: MovieCard(_movies[index], _onMovieTap),
       color: Colors.green,
     );
+  }
+
+  void _onMovieTap(Movie movie) {
+    print("onMovieTap ${movie.title}");
   }
 }
