@@ -10,29 +10,37 @@ import 'package:tmdb/repo/repos.dart';
  * - Reviews
  */
 class MovieDetailPage extends StatefulWidget {
-  MovieDetailPage({Key key}) : super(key: key);
+  MovieDetailPage({Key key, this.movie_id}) : super(key: key);
+
+  final int movie_id;
 
   @override
   State<StatefulWidget> createState() {
-    return MovieDetailPageState();
+    return MovieDetailPageState(movie_id: movie_id);
   }
 }
 
 class MovieDetailPageState extends State<MovieDetailPage> {
-  MovieDetailPageState();
+  MovieDetailPageState({this.movie_id});
 
-  int movie_id;
+  final int movie_id;
   Movie _movie;
 
   final repo = ImageRepo.instance();
 
   @override
+  void initState() {
+    super.initState();
+    _getDetail();
+  }
+
+  @override
   Widget build(BuildContext context) {
-    // TODO: getting args in here is bad
-    Map<String, num> args = ModalRoute.of(context).settings.arguments;
-    movie_id = args['id'];
     if (_movie == null) {
       return Scaffold(
+        appBar: AppBar(
+          title: Text("Movie detail"),
+        ),
         body: Center(
           child: Text("Need a golden touch"),
         ),

@@ -22,9 +22,13 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.green,
       ),
       initialRoute: '/',
-      routes: {
-        '/': (context) => PopularMovieList(title: "Popular",),
-        '/detail': (context) => MovieDetailPage(),
+      onGenerateRoute: (RouteSettings settings) {
+        var routes = <String, WidgetBuilder>{
+          '/': (context) => PopularMovieList(title: "Popular"),
+          '/detail': (context) => MovieDetailPage(movie_id: settings.arguments),
+        };
+        WidgetBuilder builder = routes[settings.name];
+        return MaterialPageRoute(builder: (context) => builder(context));
       },
     );
   }
