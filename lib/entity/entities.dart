@@ -4,3 +4,4 @@ export 'package:tmdb/entity/People.dart';
 export 'package:tmdb/entity/MovieResponse.dart';
 export 'package:tmdb/entity/Images.dart';
 export 'package:tmdb/entity/Configuration.dart';
+export 'package:tmdb/entity/Genres.dart';

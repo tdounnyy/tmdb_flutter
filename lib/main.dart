@@ -21,7 +21,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.green,
       ),
-      home: MovieDetailPage(),
+      home: MovieDetailPage(movie_Id: 566555),
     );
   }
 }

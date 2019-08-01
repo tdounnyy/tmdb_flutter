@@ -1,5 +1,7 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:tmdb/entity/entities.dart';
+import 'package:tmdb/repo/repos.dart';
 
 /**
  * TODO
@@ -7,59 +9,104 @@ import 'package:tmdb/entity/entities.dart';
  * - Posters
  * - Reviews
  */
-class MovieDetailPage extends StatelessWidget {
-  MovieDetailPage({Key key, this.movie}) : super(key: key);
+class MovieDetailPage extends StatefulWidget {
+  MovieDetailPage({Key key, this.movie_Id}) : super(key: key);
 
-  final Movie movie;
+  final int movie_Id;
+
+  @override
+  State<StatefulWidget> createState() =>
+      MovieDetailPageState(movie_id: movie_Id);
+}
+
+class MovieDetailPageState extends State<MovieDetailPage> {
+  MovieDetailPageState({this.movie_id});
+
+  final int movie_id;
+  Movie _movie;
+
+  final repo = ImageRepo.instance();
 
   @override
   Widget build(BuildContext context) {
+    if (_movie == null) {
+      return Scaffold(
+        body: Center(
+          child: Text("Need a golden touch"),
+        ),
+        floatingActionButton: FloatingActionButton(
+          onPressed: _getDetail,
+          tooltip: 'Increment',
+          child: Icon(Icons.refresh),
+        ),
+      );
+    }
+
+    var moviePoster = repo.buildImageUrl(_movie.poster_path);
     return Scaffold(
       appBar: AppBar(
         title: Text("Movie detail"),
       ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: _getDetail,
+        tooltip: 'Increment',
+        child: Icon(Icons.refresh),
+      ),
       body: Container(
         color: Colors.white,
         child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
             Row(
               children: <Widget>[
-                Placeholder(
-                  fallbackWidth: 90,
-                  fallbackHeight: 160,
+                CachedNetworkImage(
+                  imageUrl: moviePoster,
+                  height: 200,
+                  fit: BoxFit.cover,
+                ),
+                SizedBox(
+                  width: 10,
                 ),
                 Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
                     Text(
-                      "title",
-                      style: TextStyle(fontSize: 40),
-                    ),
-                    Text(
-                      "popular",
+                      _movie.title,
                       style: TextStyle(fontSize: 30),
                     ),
                     Text(
-                      "genres",
-                      style: TextStyle(fontSize: 30),
+                      _movie.popularity.toString(),
+                      style: TextStyle(fontSize: 20),
                     ),
                     Text(
-                      "language",
-                      style: TextStyle(fontSize: 30),
+                      List.of(_movie.genre_list).map((i) => i.name).join("#"),
                     ),
                     Text(
-                      "date",
-                      style: TextStyle(fontSize: 30),
+                      _movie.original_language,
                     ),
+                    Text(
+                      _movie.release_date,
+                    ),
+                    Text(_movie.adult ? "18+" : "3+"),
                   ],
                 ),
               ],
             ),
-            Text("movie desc"),
+            Text(
+              _movie.overview,
+              maxLines: 3,
+              overflow: TextOverflow.ellipsis,
+            ),
             Text("people portrait gallery"),
-            Text("status"),
           ],
         ),
       ),
     );
+  }
+
+  void _getDetail() async {
+    _movie = await MovieRepo.instance().mockMovieDetail();
+    print("getDetail ${_movie.title}");
+    setState(() {});
   }
 }

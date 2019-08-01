@@ -1,11 +1,15 @@
 import 'dart:convert';
 
+import 'package:tmdb/entity/entities.dart';
+
 class Movie {
   String poster_path;
   bool adult;
+  num budget;
   String overview;
   String release_date;
   List<num> genre_ids;
+  List<Genres> genre_list;
   num id;
   String original_title;
   String original_language;
@@ -19,13 +23,13 @@ class Movie {
   Movie();
 
   factory Movie.fromJson(Map<String, dynamic> json) {
-    return Movie()
+    var movie = Movie()
       ..poster_path = json["poster_path"]
       ..adult = json["adult"]
       ..overview = json["overview"]
       ..release_date = json["release_date"]
-      ..genre_ids = List.of(json["genre_ids"]).map((i) => i as int).toList()
       ..id = json["id"]
+      ..budget = json["budget"]
       ..original_title = json["original_title"]
       ..original_language = json["original_language"]
       ..title = json["title"]
@@ -34,6 +38,18 @@ class Movie {
       ..vote_count = json["vote_count"]
       ..video = json["video"]
       ..vote_average = json["vote_average"];
+
+    //TODO this is ugly
+    if (json["genre_ids"] != null) {
+      movie.genre_ids =
+          List.of(json["genre_ids"]).map((i) => i as int).toList();
+    }
+    if (json["genres"] != null) {
+      movie.genre_list = List.of(json["genres"])
+          .map((i) => new Genres(id: i["id"], name: i["name"]))
+          .toList();
+    }
+    return movie;
   }
 
   Map<String, dynamic> toJson() {
@@ -43,7 +59,9 @@ class Movie {
       "overview": this.overview,
       "release_date": this.release_date,
       "genre_ids": jsonEncode(this.genre_ids),
+      "genres": jsonEncode(this.genre_list),
       "id": this.id,
+      "budget": this.budget,
       "original_title": this.original_title,
       "original_language": this.original_language,
       "title": this.title,
