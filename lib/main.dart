@@ -21,7 +21,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.green,
       ),
-      home: PopularMovieList(title: 'TMDB Popular'),
+      home: MovieDetailPage(),
     );
   }
 }
