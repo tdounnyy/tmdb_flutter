@@ -21,7 +21,11 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.green,
       ),
-      home: MovieDetailPage(movie_Id: 566555),
+      initialRoute: '/',
+      routes: {
+        '/': (context) => PopularMovieList(title: "Popular",),
+        '/detail': (context) => MovieDetailPage(),
+      },
     );
   }
 }

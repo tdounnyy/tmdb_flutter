@@ -55,7 +55,8 @@ class _PopularMovieListState extends State<PopularMovieList> {
     );
   }
 
-  void _onMovieTap(Movie movie) {
+  void _onMovieTap(BuildContext context, Movie movie) {
     print("onMovieTap ${movie.title}");
+    Navigator.of(context).pushNamed('/detail', arguments: {"id": movie.id});
   }
 }
