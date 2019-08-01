@@ -105,7 +105,7 @@ class MovieDetailPageState extends State<MovieDetailPage> {
   }
 
   void _getDetail() async {
-    _movie = await MovieRepo.instance().mockMovieDetail();
+    _movie = await MovieRepo.instance().movieDetail(movie_id);
     print("getDetail ${_movie.title}");
     setState(() {});
   }
