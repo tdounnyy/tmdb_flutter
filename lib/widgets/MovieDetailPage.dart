@@ -24,6 +24,7 @@ class MovieDetailPageState extends State<MovieDetailPage> {
   MovieDetailPageState(this.movie);
 
   Movie movie;
+  List<Cast> castList;
 
   @override
   void initState() {
@@ -48,12 +49,16 @@ class MovieDetailPageState extends State<MovieDetailPage> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
             MovieDetailHeader(movie),
-            Text(
-              movie.overview,
-              maxLines: 3,
-              overflow: TextOverflow.ellipsis,
+            Padding(
+              padding: EdgeInsets.only(top: 20, bottom: 20),
+              child: Text(
+                movie.overview,
+                maxLines: 5,
+                overflow: TextOverflow.ellipsis,
+                style: TextStyle(fontSize: 18),
+              ),
             ),
-            Text("people portrait gallery"),
+            PortraitGallery(castList),
           ],
         ),
       ),
@@ -62,8 +67,8 @@ class MovieDetailPageState extends State<MovieDetailPage> {
 
   void _getDetail() async {
     movie = await MovieRepo.instance().movieDetail(movie.id);
-    var cast = await MovieRepo.instance().movieCast(movie.id);
-    print("getDetail movie: ${movie.title} & casts: ${cast.length}");
+    castList = await MovieRepo.instance().movieCast(movie.id);
+    print("getDetail movie: ${movie.title} & casts: ${castList.length}");
     setState(() {});
   }
 }
