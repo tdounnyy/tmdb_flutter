@@ -1,7 +1,7 @@
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:tmdb/entity/entities.dart';
 import 'package:tmdb/repo/repos.dart';
+import 'package:tmdb/widgets/widgets.dart';
 
 /**
  * TODO
@@ -10,22 +10,20 @@ import 'package:tmdb/repo/repos.dart';
  * - Reviews
  */
 class MovieDetailPage extends StatefulWidget {
-  MovieDetailPage({Key key, this.movie}) : super(key: key);
+  MovieDetailPage(this.movie, {Key key}) : super(key: key);
 
-  Movie movie;
+  final Movie movie;
 
   @override
   State<StatefulWidget> createState() {
-    return MovieDetailPageState(movie: movie);
+    return MovieDetailPageState(movie);
   }
 }
 
 class MovieDetailPageState extends State<MovieDetailPage> {
-  MovieDetailPageState({this.movie});
+  MovieDetailPageState(this.movie);
 
   Movie movie;
-
-  final repo = ImageRepo.instance();
 
   @override
   void initState() {
@@ -35,7 +33,6 @@ class MovieDetailPageState extends State<MovieDetailPage> {
 
   @override
   Widget build(BuildContext context) {
-    var moviePoster = repo.buildImageUrl(movie.poster_path);
     return Scaffold(
       appBar: AppBar(
         title: Text("Movie detail"),
@@ -50,46 +47,7 @@ class MovieDetailPageState extends State<MovieDetailPage> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            Row(
-              children: <Widget>[
-                Hero(
-                  tag: "hero_${movie.id}",
-                  child: CachedNetworkImage(
-                    imageUrl: moviePoster,
-                    height: 200,
-                    fit: BoxFit.cover,
-                  ),
-                ),
-                SizedBox(
-                  width: 10,
-                ),
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: <Widget>[
-                    Text(
-                      movie.title,
-                      style: TextStyle(fontSize: 30),
-                    ),
-                    Text(
-                      movie.popularity.toString(),
-                      style: TextStyle(fontSize: 20),
-                    ),
-                    Text(
-                      List.of(movie.genre_list ?? [])
-                          .map((i) => i.name)
-                          .join("#"),
-                    ),
-                    Text(
-                      movie.original_language,
-                    ),
-                    Text(
-                      movie.release_date,
-                    ),
-                    Text(movie.adult ? "18+" : "3+"),
-                  ],
-                ),
-              ],
-            ),
+            MovieDetailHeader(movie),
             Text(
               movie.overview,
               maxLines: 3,

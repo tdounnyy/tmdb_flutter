@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:tmdb/entity/entities.dart';
 
 import 'widgets/widgets.dart';
 
@@ -25,7 +26,7 @@ class MyApp extends StatelessWidget {
       onGenerateRoute: (RouteSettings settings) {
         var routes = <String, WidgetBuilder>{
           '/': (context) => PopularMovieList(title: "Popular"),
-          '/detail': (context) => MovieDetailPage(movie: settings.arguments),
+          '/detail': (context) => MovieDetailPage(settings.arguments as Movie),
         };
         WidgetBuilder builder = routes[settings.name];
         return MaterialPageRoute(builder: (context) => builder(context));
