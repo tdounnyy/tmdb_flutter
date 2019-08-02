@@ -62,7 +62,8 @@ class MovieDetailPageState extends State<MovieDetailPage> {
 
   void _getDetail() async {
     movie = await MovieRepo.instance().movieDetail(movie.id);
-    print("getDetail ${movie.title}");
+    var cast = await MovieRepo.instance().movieCast(movie.id);
+    print("getDetail movie: ${movie.title} & casts: ${cast.length}");
     setState(() {});
   }
 }

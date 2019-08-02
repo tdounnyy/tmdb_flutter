@@ -7,7 +7,7 @@ import 'package:tmdb/util/C.dart';
 
 class MovieRepo {
   static const POPULAR = "/movie/popular";
-  static const DETAIL = "/movie/";
+  static const MOVIE = "/movie/";
 
   Future<MovieResponse> popular() async {
     // TODO: bad smell
@@ -25,8 +25,7 @@ class MovieRepo {
   }
 
   Future<Movie> movieDetail(int movieId) async {
-    // TODO
-    var url = "${C.REMOTE_BASE_URL}$DETAIL$movieId?api_key=${C.API_KEY}";
+    var url = "${C.REMOTE_BASE_URL}$MOVIE$movieId?api_key=${C.API_KEY}";
     var future = await http.get(url);
     if (future.statusCode != 200) {
       return null;
@@ -36,8 +35,20 @@ class MovieRepo {
 
   Future<Movie> mockMovieDetail() async {
     var jsonString = await rootBundle.loadString('assets/movie_detail.json');
-    Movie m =  Movie.fromJson(jsonDecode(jsonString));
+    Movie m = Movie.fromJson(jsonDecode(jsonString));
     return m;
+  }
+
+  Future<List<Cast>> movieCast(int movieId) async {
+    var url = "${C.REMOTE_BASE_URL}$MOVIE$movieId/credits?api_key=${C.API_KEY}";
+    var future = await http.get(url);
+    if (future.statusCode != 200) {
+      return null;
+    }
+    var json = jsonDecode(future.body);
+    var result = List.of(json['cast']).map((i) => Cast.fromJson(i)).toList();
+    result.sort((a, b) => a.order - b.order);
+    return result;
   }
 
   MovieRepo._private();
