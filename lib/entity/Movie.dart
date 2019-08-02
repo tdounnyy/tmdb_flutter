@@ -37,18 +37,15 @@ class Movie {
       ..popularity = json["popularity"]
       ..vote_count = json["vote_count"]
       ..video = json["video"]
-      ..vote_average = json["vote_average"];
-
-    //TODO this is ugly
-    if (json["genre_ids"] != null) {
-      movie.genre_ids =
-          List.of(json["genre_ids"]).map((i) => i as int).toList();
-    }
-    if (json["genres"] != null) {
-      movie.genre_list = List.of(json["genres"])
-          .map((i) => new Genres(id: i["id"], name: i["name"]))
-          .toList();
-    }
+      ..vote_average = json["vote_average"]
+      ..genre_ids = json["genre_ids"] != null
+          ? List.of(json["genre_ids"]).map((i) => i as int).toList()
+          : null
+      ..genre_list = json["genres"] != null
+          ? List.of(json["genres"])
+              .map((i) => new Genres(id: i["id"], name: i["name"]))
+              .toList()
+          : null;
     return movie;
   }
 
