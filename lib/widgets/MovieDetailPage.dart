@@ -10,21 +10,20 @@ import 'package:tmdb/repo/repos.dart';
  * - Reviews
  */
 class MovieDetailPage extends StatefulWidget {
-  MovieDetailPage({Key key, this.movie_id}) : super(key: key);
+  MovieDetailPage({Key key, this.movie}) : super(key: key);
 
-  final int movie_id;
+  Movie movie;
 
   @override
   State<StatefulWidget> createState() {
-    return MovieDetailPageState(movie_id: movie_id);
+    return MovieDetailPageState(movie: movie);
   }
 }
 
 class MovieDetailPageState extends State<MovieDetailPage> {
-  MovieDetailPageState({this.movie_id});
+  MovieDetailPageState({this.movie});
 
-  final int movie_id;
-  Movie _movie;
+  Movie movie;
 
   final repo = ImageRepo.instance();
 
@@ -36,23 +35,7 @@ class MovieDetailPageState extends State<MovieDetailPage> {
 
   @override
   Widget build(BuildContext context) {
-    if (_movie == null) {
-      return Scaffold(
-        appBar: AppBar(
-          title: Text("Movie detail"),
-        ),
-        body: Center(
-          child: Text("Need a golden touch"),
-        ),
-        floatingActionButton: FloatingActionButton(
-          onPressed: _getDetail,
-          tooltip: 'Increment',
-          child: Icon(Icons.refresh),
-        ),
-      );
-    }
-
-    var moviePoster = repo.buildImageUrl(_movie.poster_path);
+    var moviePoster = repo.buildImageUrl(movie.poster_path);
     return Scaffold(
       appBar: AppBar(
         title: Text("Movie detail"),
@@ -69,10 +52,13 @@ class MovieDetailPageState extends State<MovieDetailPage> {
           children: <Widget>[
             Row(
               children: <Widget>[
-                CachedNetworkImage(
-                  imageUrl: moviePoster,
-                  height: 200,
-                  fit: BoxFit.cover,
+                Hero(
+                  tag: "hero_${movie.id}",
+                  child: CachedNetworkImage(
+                    imageUrl: moviePoster,
+                    height: 200,
+                    fit: BoxFit.cover,
+                  ),
                 ),
                 SizedBox(
                   width: 10,
@@ -81,29 +67,31 @@ class MovieDetailPageState extends State<MovieDetailPage> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
                     Text(
-                      _movie.title,
+                      movie.title,
                       style: TextStyle(fontSize: 30),
                     ),
                     Text(
-                      _movie.popularity.toString(),
+                      movie.popularity.toString(),
                       style: TextStyle(fontSize: 20),
                     ),
                     Text(
-                      List.of(_movie.genre_list).map((i) => i.name).join("#"),
+                      List.of(movie.genre_list ?? [])
+                          .map((i) => i.name)
+                          .join("#"),
                     ),
                     Text(
-                      _movie.original_language,
+                      movie.original_language,
                     ),
                     Text(
-                      _movie.release_date,
+                      movie.release_date,
                     ),
-                    Text(_movie.adult ? "18+" : "3+"),
+                    Text(movie.adult ? "18+" : "3+"),
                   ],
                 ),
               ],
             ),
             Text(
-              _movie.overview,
+              movie.overview,
               maxLines: 3,
               overflow: TextOverflow.ellipsis,
             ),
@@ -115,8 +103,8 @@ class MovieDetailPageState extends State<MovieDetailPage> {
   }
 
   void _getDetail() async {
-    _movie = await MovieRepo.instance().movieDetail(movie_id);
-    print("getDetail ${_movie.title}");
+    movie = await MovieRepo.instance().movieDetail(movie.id);
+    print("getDetail ${movie.title}");
     setState(() {});
   }
 }

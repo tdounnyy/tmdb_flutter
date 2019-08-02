@@ -20,9 +20,12 @@ class MovieCard extends StatelessWidget {
         child: Stack(
           fit: StackFit.passthrough,
           children: <Widget>[
-            CachedNetworkImage(
-              fit: BoxFit.cover,
-              imageUrl: moviePoster,
+            Hero(
+              tag: "hero_${movie.id}",
+              child: CachedNetworkImage(
+                fit: BoxFit.cover,
+                imageUrl: moviePoster,
+              ),
             ),
             Container(
               child: Column(
