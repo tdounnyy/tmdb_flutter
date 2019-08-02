@@ -46,6 +46,7 @@ flutter:
   assets:
     - assets/movie_page.json
     - assets/movie_detail.json
+    - assets/cast.json
   #  - images/a_dot_burr.jpeg
   #  - images/a_dot_ham.jpeg
 
