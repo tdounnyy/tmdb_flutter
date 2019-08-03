@@ -3,6 +3,7 @@ import 'dart:math' as math;
 import 'package:flutter/material.dart';
 import 'package:tmdb/entity/entities.dart';
 import 'package:tmdb/widgets/Portrait.dart';
+import 'package:tmdb/widgets/widgets.dart';
 
 class PortraitGallery extends StatelessWidget {
   PortraitGallery(this.galleryTitle, this.peopleList);
@@ -17,7 +18,7 @@ class PortraitGallery extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
-        Text(
+        SectionHeader(
           galleryTitle,
         ),
         SizedBox(

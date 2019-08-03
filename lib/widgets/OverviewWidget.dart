@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:tmdb/entity/entities.dart';
+import 'package:tmdb/widgets/widgets.dart';
 
 class OverviewWidget extends StatefulWidget {
   OverviewWidget(this.movie);
@@ -27,7 +28,7 @@ class OverviewWidgetState extends State<OverviewWidget> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
-          Text("Overview:"),
+          SectionHeader("Overview:"),
           // TODO: [RichText] with expand hint at the end of ellipsis
           Text(
             movie.overview ?? EMPTY_OVERVIEW,
