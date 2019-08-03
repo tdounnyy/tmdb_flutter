@@ -11,11 +11,10 @@ class Portrait extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var profile_url = ImageRepo.instance().buildImageUrl(people.profile_path);
-    return GestureDetector(
-      onTap: _tapOnPortrait,
-      child: Container(
-        width: 100,
-        child: Column(
+    return Container(
+      width: 100,
+      child: Stack(children: <Widget>[
+        Column(
           children: <Widget>[
             Card(
               clipBehavior: Clip.antiAlias,
@@ -23,14 +22,23 @@ class Portrait extends StatelessWidget {
                 imageUrl: profile_url,
               ),
             ),
-            Text(
-              people.name,
-              maxLines: 2,
-              overflow: TextOverflow.ellipsis,
+            Expanded(
+              child: Text(
+                people.name,
+                textAlign: TextAlign.center,
+                maxLines: 2,
+                overflow: TextOverflow.ellipsis,
+              ),
             ),
           ],
         ),
-      ),
+        Material(
+          color: Colors.transparent,
+          child: InkWell(
+            onTap: _tapOnPortrait,
+          ),
+        )
+      ]),
     );
   }
 

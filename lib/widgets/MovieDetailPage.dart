@@ -45,16 +45,18 @@ class MovieDetailPageState extends State<MovieDetailPage> {
       ),
       body: Container(
         color: Colors.white,
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: <Widget>[
-            MovieDetailHeader(movie),
-            Padding(
-              padding: EdgeInsets.only(top: 20, bottom: 20),
-              child: OverviewWidget(movie),
-            ),
-            PortraitGallery("Cast:", castList),
-          ],
+        child: Material(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: <Widget>[
+              MovieDetailHeader(movie),
+              Padding(
+                padding: EdgeInsets.only(top: 20, bottom: 20),
+                child: OverviewWidget(movie),
+              ),
+              PortraitGallery("Cast:", castList),
+            ],
+          ),
         ),
       ),
     );

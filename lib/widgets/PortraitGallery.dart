@@ -11,7 +11,7 @@ class PortraitGallery extends StatelessWidget {
   final String galleryTitle;
   final List<People> peopleList;
   static const int MAX_PORTRAIT = 9;
-  static const double PORTRAIT_HEIGHT = 200;
+  static const double PORTRAIT_HEIGHT = 180;
 
   @override
   Widget build(BuildContext context) {
