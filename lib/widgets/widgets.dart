@@ -5,3 +5,4 @@ export 'MovieDetailPage.dart';
 export 'PopularMovieList.dart';
 export 'Portrait.dart';
 export 'PortraitGallery.dart';
+export 'OverviewWidget.dart';

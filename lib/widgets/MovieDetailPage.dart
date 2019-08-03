@@ -51,12 +51,7 @@ class MovieDetailPageState extends State<MovieDetailPage> {
             MovieDetailHeader(movie),
             Padding(
               padding: EdgeInsets.only(top: 20, bottom: 20),
-              child: Text(
-                movie.overview,
-                maxLines: 5,
-                overflow: TextOverflow.ellipsis,
-                style: TextStyle(fontSize: 18),
-              ),
+              child: OverviewWidget(movie),
             ),
             PortraitGallery("Cast:", castList),
           ],
