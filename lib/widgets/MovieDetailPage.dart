@@ -58,7 +58,7 @@ class MovieDetailPageState extends State<MovieDetailPage> {
                 style: TextStyle(fontSize: 18),
               ),
             ),
-            PortraitGallery(castList),
+            PortraitGallery("Cast:", castList),
           ],
         ),
       ),
