@@ -13,40 +13,54 @@ class MovieDetailHeader extends StatelessWidget {
     var moviePoster = ImageRepo.instance().buildImageUrl(movie.poster_path);
 
     return Row(
+      crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
-        Hero(
-          tag: "hero_${movie.id}",
-          child: CachedNetworkImage(
-            imageUrl: moviePoster,
-            height: 200,
-            fit: BoxFit.cover,
+        Flexible(
+          flex: 1,
+          child: Hero(
+            tag: "hero_${movie.id}",
+            child: Card(
+              child: CachedNetworkImage(
+                imageUrl: moviePoster,
+              ),
+            ),
           ),
         ),
         SizedBox(
-          width: 10,
+          width: 8,
         ),
-        Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: <Widget>[
-            Text(
-              movie.title,
-              style: TextStyle(fontSize: 30),
-            ),
-            Text(
-              movie.popularity.toString(),
-              style: TextStyle(fontSize: 20),
-            ),
-            Text(
-              List.of(movie.genre_list ?? []).map((i) => i.name).join("#"),
-            ),
-            Text(
-              movie.original_language,
-            ),
-            Text(
-              movie.release_date,
-            ),
-            Text(movie.adult ? "18+" : "3+"),
-          ],
+        Flexible(
+          flex: 2,
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: <Widget>[
+              Text(
+                movie.title,
+                style: TextStyle(fontSize: 25),
+              ),
+              Text(
+                movie.release_date,
+                style: TextStyle(fontSize: 16),
+              ),
+              Text(
+                "\u{1F525} ${movie.popularity.toInt()}",
+                style: TextStyle(fontSize: 16),
+              ),
+              Text(
+                movie.adult ? "18+" : "3+",
+                style: TextStyle(fontSize: 16),
+              ),
+              Wrap(
+                spacing: 8,
+                runSpacing: 4,
+                children: List.of(movie.genre_list ?? [])
+                    .map((i) => Chip(
+                        materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                        label: Text(i.name)))
+                    .toList(),
+              ),
+            ],
+          ),
         ),
       ],
     );
