@@ -24,7 +24,7 @@ class PortraitGallery extends StatelessWidget {
         SizedBox(
           height: PORTRAIT_HEIGHT,
           child: peopleList == null
-              ? Text("d=====(￣▽￣*)b")
+              ? Center(child: CircularProgressIndicator())
               : ListView.builder(
                   scrollDirection: Axis.horizontal,
                   itemBuilder: (_, index) => Portrait(peopleList[index]),
