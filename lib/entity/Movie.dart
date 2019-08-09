@@ -1,72 +1,57 @@
-import 'dart:convert';
-
+import 'package:json_annotation/json_annotation.dart';
 import 'package:tmdb/entity/entities.dart';
 
+part 'Movie.g.dart';
+
+@JsonSerializable()
 class Movie {
-  String poster_path;
+  @JsonKey(required: true)
+  num id;
+  @JsonKey(name: 'poster_path')
+  String posterPath;
   bool adult;
   num budget;
   String overview;
-  String release_date;
-  List<num> genre_ids;
-  List<Genres> genre_list;
-  num id;
-  String original_title;
-  String original_language;
+  @JsonKey(name: 'release_date')
+  String releaseDate;
+  @JsonKey(name: 'genre_ids')
+  List<num> genreIds;
+  @JsonKey(name: 'genre_list')
+  List<Genres> genreList;
+  @JsonKey(name: 'original_title')
+  String originalTitle;
+  @JsonKey(name: 'original_language')
+  String originalLanguage;
   String title;
-  String backdrop_path;
+  @JsonKey(name: 'backdrop_path')
+  String backdropPath;
   num popularity;
-  num vote_count;
+  @JsonKey(name: 'vote_count')
+  num voteCount;
   bool video;
-  num vote_average;
+  @JsonKey(name: 'vote_average')
+  num voteAverage;
 
-  Movie();
+  Movie(
+    this.id, {
+    this.posterPath,
+    this.adult,
+    this.budget,
+    this.overview,
+    this.releaseDate,
+    this.genreIds,
+    this.genreList,
+    this.originalTitle,
+    this.originalLanguage,
+    this.title,
+    this.backdropPath,
+    this.popularity,
+    this.voteCount,
+    this.video,
+    this.voteAverage,
+  });
 
-  factory Movie.fromJson(Map<String, dynamic> json) {
-    var movie = Movie()
-      ..poster_path = json["poster_path"]
-      ..adult = json["adult"]
-      ..overview = json["overview"]
-      ..release_date = json["release_date"]
-      ..id = json["id"]
-      ..budget = json["budget"]
-      ..original_title = json["original_title"]
-      ..original_language = json["original_language"]
-      ..title = json["title"]
-      ..backdrop_path = json["backdrop_path"]
-      ..popularity = json["popularity"]
-      ..vote_count = json["vote_count"]
-      ..video = json["video"]
-      ..vote_average = json["vote_average"]
-      ..genre_ids = json["genre_ids"] != null
-          ? List.of(json["genre_ids"]).map((i) => i as int).toList()
-          : null
-      ..genre_list = json["genres"] != null
-          ? List.of(json["genres"])
-              .map((i) => new Genres(id: i["id"], name: i["name"]))
-              .toList()
-          : null;
-    return movie;
-  }
+  factory Movie.fromJson(Map<String, dynamic> json) => _$MovieFromJson(json);
 
-  Map<String, dynamic> toJson() {
-    return {
-      "poster_path": this.poster_path,
-      "adult": this.adult,
-      "overview": this.overview,
-      "release_date": this.release_date,
-      "genre_ids": jsonEncode(this.genre_ids),
-      "genres": jsonEncode(this.genre_list),
-      "id": this.id,
-      "budget": this.budget,
-      "original_title": this.original_title,
-      "original_language": this.original_language,
-      "title": this.title,
-      "backdrop_path": this.backdrop_path,
-      "popularity": this.popularity,
-      "vote_count": this.vote_count,
-      "video": this.video,
-      "vote_average": this.vote_average,
-    };
-  }
+  Map<String, dynamic> toJson() => _$MovieToJson(this);
 }

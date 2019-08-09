@@ -12,7 +12,7 @@ class MovieCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var repo = ImageRepo.instance();
-    var moviePoster = repo.buildImageUrl(movie.poster_path);
+    var moviePoster = repo.buildImageUrl(movie.posterPath);
     return Card(
       clipBehavior: Clip.antiAlias,
       child: IntrinsicHeight(

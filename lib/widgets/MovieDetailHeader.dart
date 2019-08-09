@@ -10,7 +10,7 @@ class MovieDetailHeader extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var moviePoster = ImageRepo.instance().buildImageUrl(movie.poster_path);
+    var moviePoster = ImageRepo.instance().buildImageUrl(movie.posterPath);
 
     return Row(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -39,7 +39,7 @@ class MovieDetailHeader extends StatelessWidget {
                 style: TextStyle(fontSize: 25),
               ),
               Text(
-                movie.release_date,
+                movie.releaseDate,
                 style: TextStyle(fontSize: 16),
               ),
               Text(
@@ -53,7 +53,7 @@ class MovieDetailHeader extends StatelessWidget {
               Wrap(
                 spacing: 8,
                 runSpacing: 4,
-                children: List.of(movie.genre_list ?? [])
+                children: List.of(movie.genreList ?? [])
                     .map((i) => Chip(
                         materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
                         label: Text(i.name)))

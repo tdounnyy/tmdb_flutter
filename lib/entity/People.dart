@@ -1,82 +1,53 @@
-class People {
-  People({this.id, this.name, this.profile_path, this.adult, this.gender});
+import 'package:json_annotation/json_annotation.dart';
 
+part 'People.g.dart';
+
+@JsonSerializable()
+class People {
+  People({this.id, this.name, this.profilePath, this.adult, this.gender});
+
+  @JsonKey(required: true)
   int id;
   String name;
-  String profile_path;
+  @JsonKey(name: 'profile_path')
+  String profilePath;
   bool adult;
   int gender;
 
-  factory People.fromJson(Map<String, dynamic> json) {
-    return People(
-      id: json["id"],
-      name: json["name"],
-      gender: json["gender"],
-      profile_path: json["profile_path"],
-      adult: json["adult"],
-    );
-  }
+  factory People.fromJson(Map<String, dynamic> json) => _$PeopleFromJson(json);
 
-  Map<String, dynamic> toJson() {
-    return {
-      "id": this.id,
-      "name": this.name,
-      "gender": this.gender,
-      "profile_path": this.profile_path,
-      "adult": this.adult,
-    };
-  }
+  Map<String, dynamic> toJson() => _$PeopleToJson(this);
 }
 
+@JsonSerializable()
 class Cast extends People {
   Cast({
-    this.cast_id,
+    this.castId,
     this.character,
-    this.credit_id,
+    this.creditId,
     this.order,
+    // TODO: retyping is BAD
     int id,
     String name,
-    String profile_path,
+    @JsonKey(name: 'profile_path')
+    String profilePath,
     bool adult,
     int gender,
   }) : super(
             id: id,
             name: name,
-            profile_path: profile_path,
+            profilePath: profilePath,
             adult: adult,
             gender: gender);
 
-  int cast_id;
+  @JsonKey(required: true, name: 'cast_id')
+  int castId;
   String character;
-  String credit_id;
+  @JsonKey(name: 'credit_id')
+  String creditId;
   int order;
 
-  // TODO so many retyping for super class, got to be a way much elegant
-  factory Cast.fromJson(Map<String, dynamic> json) {
-    return Cast(
-      cast_id: json["cast_id"],
-      character: json["character"],
-      credit_id: json["credit_id"],
-      order: json["order"],
-      id: json["id"],
-      name: json["name"],
-      gender: json["gender"],
-      profile_path: json["profile_path"],
-      adult: json["adult"],
-    );
-  }
+  factory Cast.fromJson(Map<String, dynamic> json) => _$CastFromJson(json);
 
-  Map<String, dynamic> toJson() {
-    return {
-      "cast_id": this.cast_id,
-      "character": this.character,
-      "credit_id": this.credit_id,
-      "order": this.order,
-      "id": this.id,
-      "name": this.name,
-      "gender": this.gender,
-      "profile_path": this.profile_path,
-      "adult": this.adult,
-    };
-  }
+  Map<String, dynamic> toJson() => _$CastToJson(this);
 }

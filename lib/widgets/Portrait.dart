@@ -10,7 +10,7 @@ class Portrait extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var profile_url = ImageRepo.instance().buildImageUrl(people.profile_path);
+    var profile_url = ImageRepo.instance().buildImageUrl(people.profilePath);
     return Container(
       width: 100,
       child: Stack(children: <Widget>[
