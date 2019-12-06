@@ -44,6 +44,6 @@ class Portrait extends StatelessWidget {
 
   void _tapOnPortrait(BuildContext context) {
     print("tapOnPortrait() ${person.name}");
-    Navigator.of(context).pushNamed('/personDetail', arguments: person);
+    Navigator.of(context).pushNamed('/personDetail', arguments: person.id);
   }
 }

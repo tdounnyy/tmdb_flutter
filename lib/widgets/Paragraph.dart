@@ -9,17 +9,15 @@ class Paragraph extends StatefulWidget {
 
   @override
   State<StatefulWidget> createState() {
-    return ParagraphState(title, content);
+    return ParagraphState();
   }
 }
 
 class ParagraphState extends State<Paragraph> {
-  ParagraphState(this.title, this.content);
+  ParagraphState();
 
   static const EMPTY_OVERVIEW = "Nothing...";
 
-  String title;
-  String content;
   bool expanded = false;
 
   @override
@@ -29,10 +27,10 @@ class ParagraphState extends State<Paragraph> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
-          SectionHeader(title),
+          SectionHeader(widget.title),
           // TODO: [RichText] with expand hint at the end of ellipsis
           Text(
-            content ?? EMPTY_OVERVIEW,
+            widget.content ?? EMPTY_OVERVIEW,
             maxLines: expanded ? 10 : 2,
             overflow: TextOverflow.ellipsis,
           ),

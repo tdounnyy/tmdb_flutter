@@ -6,85 +6,86 @@ import 'package:tmdb/util/GenderHelper.dart';
 import 'package:tmdb/widgets/widgets.dart';
 
 class PersonDetailPage extends StatefulWidget {
-  PersonDetailPage(this.person, {Key key}) : super(key: key);
+  PersonDetailPage(this.personId, {Key key}) : super(key: key);
 
-  final Person person;
+  final int personId;
 
   @override
   State<StatefulWidget> createState() {
-    return PersonDetailPageState(person);
+    return PersonDetailPageState();
   }
 }
 
 class PersonDetailPageState extends State<PersonDetailPage> {
-  PersonDetailPageState(this.person);
-
-  Person person;
+  Person _person;
 
   @override
   void initState() {
     super.initState();
-    _fetchPersonById(person.id);
+    _fetchPersonById(widget.personId);
   }
 
   @override
   Widget build(BuildContext context) {
-    var profileUrl = ImageRepo.instance().buildImageUrl(person.profilePath);
+    var profileUrl =
+        ImageRepo.instance().buildImageUrl(_person?.profilePath ?? "");
     return Scaffold(
         appBar: AppBar(
-          title: Text(person.name),
+          title: Text(_person?.name ?? ""),
         ),
         body: Container(
           padding: const EdgeInsets.all(8.0),
-          child: Column(
-            children: <Widget>[
-              Row(
-                children: <Widget>[
-                  Card(
-                    clipBehavior: Clip.antiAlias,
-                    child: CachedNetworkImage(
-                      width: 150,
-                      imageUrl: profileUrl,
+          child: _person == null
+              ? EmptyView()
+              : Column(
+                  children: <Widget>[
+                    Row(
+                      children: <Widget>[
+                        Card(
+                          clipBehavior: Clip.antiAlias,
+                          child: CachedNetworkImage(
+                            width: 150,
+                            imageUrl: profileUrl,
+                          ),
+                        ),
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: <Widget>[
+                            Text(_person.name ?? ""),
+                            Text(GenderHelper.getGenderString(_person.gender)),
+                            Text(_person.birthday ?? ""),
+                            Text("🔥${_person.popularity.toString()}"),
+                            RaisedButton(
+                              onPressed: () => {},
+                              color: Colors.green,
+                              textColor: Colors.white,
+                              child: Text("Follow"),
+                            ),
+                          ],
+                        )
+                      ],
                     ),
-                  ),
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: <Widget>[
-                      Text(person.name ?? ""),
-                      Text(GenderHelper.getGenderString(person.gender)),
-                      Text(person.birthday ?? ""),
-                      Text("🔥${person.popularity.toString()}"),
-                      RaisedButton(
-                        onPressed: () => {},
-                        color: Colors.green,
-                        textColor: Colors.white,
-                        child: Text("Follow"),
-                      ),
-                    ],
-                  )
-                ],
-              ),
-              Padding(
-                padding: EdgeInsets.only(top: 20, bottom: 20),
-                child: Paragraph("Intro", person.biography),
-              ),
-              Row(
-                children: <Widget>[
-                  Column(
-                    children: <Widget>[
-                      SectionHeader("Movies"),
-                      Text("TODO"),
-                    ],
-                  ),
-                ],
-              ),
-            ],
-          ),
+                    Padding(
+                      padding: EdgeInsets.only(top: 20, bottom: 20),
+                      child: Paragraph("Intro", _person.biography),
+                    ),
+                    Row(
+                      children: <Widget>[
+                        Column(
+                          children: <Widget>[
+                            SectionHeader("Movies"),
+                            Text("TODO"),
+                          ],
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
         ));
   }
 
   void _fetchPersonById(int personId) async {
-    person = await PersonRepo.instance().personById(personId);
+    _person = await PersonRepo.instance().personById(personId);
     setState(() {});
   }
 }

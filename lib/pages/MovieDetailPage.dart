@@ -10,21 +10,19 @@ import 'package:tmdb/widgets/widgets.dart';
  * - Reviews
  */
 class MovieDetailPage extends StatefulWidget {
-  MovieDetailPage(this.movie, {Key key}) : super(key: key);
+  MovieDetailPage(this.movieId, {Key key}) : super(key: key);
 
-  final Movie movie;
+  final int movieId;
 
   @override
   State<StatefulWidget> createState() {
-    return MovieDetailPageState(movie);
+    return MovieDetailPageState();
   }
 }
 
 class MovieDetailPageState extends State<MovieDetailPage> {
-  MovieDetailPageState(this.movie);
-
-  Movie movie;
-  List<Cast> castList;
+  Movie _movie;
+  List<Cast> _castList;
 
   @override
   void initState() {
@@ -45,30 +43,32 @@ class MovieDetailPageState extends State<MovieDetailPage> {
       ),
       body: Container(
         color: Colors.white,
-        child: Material(
-          child: Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: <Widget>[
-                MovieDetailHeader(movie),
-                Padding(
-                  padding: EdgeInsets.only(top: 20, bottom: 20),
-                  child: Paragraph("Overview", movie.overview),
+        child: _movie == null
+            ? EmptyView()
+            : Material(
+                child: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: <Widget>[
+                      MovieDetailHeader(_movie),
+                      Padding(
+                        padding: EdgeInsets.only(top: 20, bottom: 20),
+                        child: Paragraph("Overview", _movie.overview),
+                      ),
+                      PortraitGallery("Cast:", _castList),
+                    ],
+                  ),
                 ),
-                PortraitGallery("Cast:", castList),
-              ],
-            ),
-          ),
-        ),
+              ),
       ),
     );
   }
 
   void _getDetail() async {
-    movie = await MovieRepo.instance().movieDetail(movie.id);
-    castList = await MovieRepo.instance().movieCast(movie.id);
-    print("getDetail movie: ${movie.title} & casts: ${castList.length}");
+    _movie = await MovieRepo.instance().movieDetail(widget.movieId);
+    _castList = await MovieRepo.instance().movieCast(widget.movieId);
+    print("getDetail movie: ${_movie.title} & casts: ${_castList.length}");
     setState(() {});
   }
 }

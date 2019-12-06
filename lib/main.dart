@@ -26,9 +26,9 @@ class MyApp extends StatelessWidget {
       onGenerateRoute: (RouteSettings settings) {
         var routes = <String, WidgetBuilder>{
           '/': (context) => PopularMoviePage(title: "Popular"),
-          '/detail': (context) => MovieDetailPage(settings.arguments as Movie),
+          '/detail': (context) => MovieDetailPage(settings.arguments as int),
           '/personDetail': (context) =>
-              PersonDetailPage(settings.arguments as Person)
+              PersonDetailPage(settings.arguments as int)
         };
         WidgetBuilder builder = routes[settings.name];
         return MaterialPageRoute(builder: (context) => builder(context));
