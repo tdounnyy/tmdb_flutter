@@ -2,6 +2,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:tmdb/entity/entities.dart';
 import 'package:tmdb/repo/repos.dart';
+import 'package:tmdb/widgets/LikeButton.dart';
 
 class MovieCard extends StatelessWidget {
   final Movie movie;
@@ -37,10 +38,11 @@ class MovieCard extends StatelessWidget {
                         Text(
                           movie.title,
                         ),
-                        Spacer(),
+                        Spacer(flex: 1),
                         Text(
-                          movie.popularity.toString(),
+                          "🔥 ${movie.popularity.toString()}",
                         ),
+                        LikeButton(true),
                       ],
                     ),
                   ),

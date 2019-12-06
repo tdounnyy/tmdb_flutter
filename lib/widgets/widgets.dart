@@ -5,3 +5,4 @@ export 'Portrait.dart';
 export 'PortraitGallery.dart';
 export 'Paragraph.dart';
 export 'SectionHeader.dart';
+export 'LikeButton.dart';

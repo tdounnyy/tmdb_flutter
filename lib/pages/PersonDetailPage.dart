@@ -55,12 +55,7 @@ class PersonDetailPageState extends State<PersonDetailPage> {
                             Text(GenderHelper.getGenderString(_person.gender)),
                             Text(_person.birthday ?? ""),
                             Text("🔥${_person.popularity.toString()}"),
-                            RaisedButton(
-                              onPressed: () => {},
-                              color: Colors.green,
-                              textColor: Colors.white,
-                              child: Text("Follow"),
-                            ),
+                            LikeButton(true),
                           ],
                         )
                       ],

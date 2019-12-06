@@ -2,6 +2,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:tmdb/entity/entities.dart';
 import 'package:tmdb/repo/repos.dart';
+import 'package:tmdb/widgets/widgets.dart';
 
 class Portrait extends StatelessWidget {
   Portrait(this.person);
@@ -16,11 +17,16 @@ class Portrait extends StatelessWidget {
       child: Stack(children: <Widget>[
         Column(
           children: <Widget>[
-            Card(
-              clipBehavior: Clip.antiAlias,
-              child: CachedNetworkImage(
-                imageUrl: profileUrl,
-              ),
+            Stack(
+              children: <Widget>[
+                Card(
+                  clipBehavior: Clip.antiAlias,
+                  child: CachedNetworkImage(
+                    imageUrl: profileUrl,
+                  ),
+                ),
+                LikeButton(true),
+              ],
             ),
             Expanded(
               child: Text(
