@@ -4,13 +4,13 @@ import 'package:tmdb/entity/entities.dart';
 import 'package:tmdb/repo/repos.dart';
 
 class Portrait extends StatelessWidget {
-  Portrait(this.people);
+  Portrait(this.person);
 
-  final Person people;
+  final Person person;
 
   @override
   Widget build(BuildContext context) {
-    var profile_url = ImageRepo.instance().buildImageUrl(people.profilePath);
+    var profileUrl = ImageRepo.instance().buildImageUrl(person.profilePath);
     return Container(
       width: 100,
       child: Stack(children: <Widget>[
@@ -19,12 +19,12 @@ class Portrait extends StatelessWidget {
             Card(
               clipBehavior: Clip.antiAlias,
               child: CachedNetworkImage(
-                imageUrl: profile_url,
+                imageUrl: profileUrl,
               ),
             ),
             Expanded(
               child: Text(
-                people.name,
+                person.name,
                 textAlign: TextAlign.center,
                 maxLines: 2,
                 overflow: TextOverflow.ellipsis,
@@ -35,14 +35,15 @@ class Portrait extends StatelessWidget {
         Material(
           color: Colors.transparent,
           child: InkWell(
-            onTap: _tapOnPortrait,
+            onTap: () => _tapOnPortrait(context),
           ),
         )
       ]),
     );
   }
 
-  void _tapOnPortrait() {
-    print("tapOnPortrait() ${people.name}");
+  void _tapOnPortrait(BuildContext context) {
+    print("tapOnPortrait() ${person.name}");
+    Navigator.of(context).pushNamed('/personDetail', arguments: person);
   }
 }

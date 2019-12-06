@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:tmdb/entity/entities.dart';
 
-import 'widgets/widgets.dart';
+import 'pages/pages.dart';
 
 /**
  * TODO
  * - movie detail
  * - like movie
  * - movie gallery
- * - People page
+ * - Person page
  * - Search movie & people
  * - Search filter
  */
@@ -25,8 +25,10 @@ class MyApp extends StatelessWidget {
       initialRoute: '/',
       onGenerateRoute: (RouteSettings settings) {
         var routes = <String, WidgetBuilder>{
-          '/': (context) => PopularMovieList(title: "Popular"),
+          '/': (context) => PopularMoviePage(title: "Popular"),
           '/detail': (context) => MovieDetailPage(settings.arguments as Movie),
+          '/personDetail': (context) =>
+              PersonDetailPage(settings.arguments as Person)
         };
         WidgetBuilder builder = routes[settings.name];
         return MaterialPageRoute(builder: (context) => builder(context));

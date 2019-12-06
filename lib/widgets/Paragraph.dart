@@ -1,24 +1,25 @@
 import 'package:flutter/material.dart';
-import 'package:tmdb/entity/entities.dart';
 import 'package:tmdb/widgets/widgets.dart';
 
-class OverviewWidget extends StatefulWidget {
-  OverviewWidget(this.movie);
+class Paragraph extends StatefulWidget {
+  Paragraph(this.title, this.content);
 
-  final Movie movie;
+  final String title;
+  final String content;
 
   @override
   State<StatefulWidget> createState() {
-    return OverviewWidgetState(movie);
+    return ParagraphState(title, content);
   }
 }
 
-class OverviewWidgetState extends State<OverviewWidget> {
-  OverviewWidgetState(this.movie);
+class ParagraphState extends State<Paragraph> {
+  ParagraphState(this.title, this.content);
 
-  static const EMPTY_OVERVIEW = "Lack of overview";
+  static const EMPTY_OVERVIEW = "Nothing...";
 
-  Movie movie;
+  String title;
+  String content;
   bool expanded = false;
 
   @override
@@ -28,10 +29,10 @@ class OverviewWidgetState extends State<OverviewWidget> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
-          SectionHeader("Overview:"),
+          SectionHeader(title),
           // TODO: [RichText] with expand hint at the end of ellipsis
           Text(
-            movie.overview ?? EMPTY_OVERVIEW,
+            content ?? EMPTY_OVERVIEW,
             maxLines: expanded ? 10 : 2,
             overflow: TextOverflow.ellipsis,
           ),

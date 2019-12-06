@@ -5,7 +5,7 @@ import 'package:tmdb/widgets/widgets.dart';
 
 /**
  * TODO
- * - People
+ * - Person
  * - Posters
  * - Reviews
  */
@@ -54,7 +54,7 @@ class MovieDetailPageState extends State<MovieDetailPage> {
                 MovieDetailHeader(movie),
                 Padding(
                   padding: EdgeInsets.only(top: 20, bottom: 20),
-                  child: OverviewWidget(movie),
+                  child: Paragraph("Overview", movie.overview),
                 ),
                 PortraitGallery("Cast:", castList),
               ],

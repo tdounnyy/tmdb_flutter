@@ -3,16 +3,16 @@ import 'package:tmdb/entity/entities.dart';
 import 'package:tmdb/repo/repos.dart';
 import 'package:tmdb/widgets/widgets.dart';
 
-class PopularMovieList extends StatefulWidget {
-  PopularMovieList({Key key, this.title}) : super(key: key);
+class PopularMoviePage extends StatefulWidget {
+  PopularMoviePage({Key key, this.title}) : super(key: key);
 
   final String title;
 
   @override
-  _PopularMovieListState createState() => _PopularMovieListState();
+  _PopularMoviePageState createState() => _PopularMoviePageState();
 }
 
-class _PopularMovieListState extends State<PopularMovieList> {
+class _PopularMoviePageState extends State<PopularMoviePage> {
   List<Movie> _movies;
 
   MovieRepo _movieRepo;
@@ -24,7 +24,7 @@ class _PopularMovieListState extends State<PopularMovieList> {
   }
 
   void _refreshMovies() async {
-    _movies = await _movieRepo.mockPopular().then((v) => v.results);
+    _movies = await _movieRepo.popular().then((v) => v.results);
     setState(() {});
   }
 
