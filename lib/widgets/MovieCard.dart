@@ -1,7 +1,9 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:tmdb/entity/entities.dart';
 import 'package:tmdb/repo/repos.dart';
+import 'package:tmdb/state/FavoriteMovieModel.dart';
 import 'package:tmdb/widgets/LikeButton.dart';
 
 class MovieCard extends StatelessWidget {
@@ -45,7 +47,11 @@ class MovieCard extends StatelessWidget {
                         Text(
                           "🔥 ${movie.popularity.toString()}",
                         ),
-                        LikeButton(true, _tapOnLikeButton),
+                        Consumer<FavoriteMovieModel>(
+                          builder: (context, likeModel, child) => LikeButton(
+                              likeModel.isFavorite(movie.id),
+                              () => _tapOnLikeButton(context)),
+                        ),
                       ],
                     ),
                   ),
@@ -66,7 +72,8 @@ class MovieCard extends StatelessWidget {
     );
   }
 
-  void _tapOnLikeButton() {
-    print("LikeButton tap on ${movie.title}");
+  void _tapOnLikeButton(BuildContext context) {
+    Provider.of<FavoriteMovieModel>(context, listen: false)
+        .toggleFavoriteMovie(movie.id);
   }
 }
