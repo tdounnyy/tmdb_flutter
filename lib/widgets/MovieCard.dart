@@ -22,9 +22,12 @@ class MovieCard extends StatelessWidget {
           children: <Widget>[
             Hero(
               tag: "hero_${movie.id}",
-              child: CachedNetworkImage(
-                fit: BoxFit.cover,
-                imageUrl: moviePoster,
+              child: GestureDetector(
+                onTap: () => tapCallback(context, movie),
+                child: CachedNetworkImage(
+                  fit: BoxFit.cover,
+                  imageUrl: moviePoster,
+                ),
               ),
             ),
             Container(
@@ -42,7 +45,7 @@ class MovieCard extends StatelessWidget {
                         Text(
                           "🔥 ${movie.popularity.toString()}",
                         ),
-                        LikeButton(true),
+                        LikeButton(true, _tapOnLikeButton),
                       ],
                     ),
                   ),
@@ -57,16 +60,13 @@ class MovieCard extends StatelessWidget {
                 ],
               ),
             ),
-            Material(
-              color: Colors.transparent,
-              child: InkWell(
-                // Card ripple HACK
-                onTap: () => tapCallback(context, movie),
-              ),
-            ),
           ],
         ),
       ),
     );
+  }
+
+  void _tapOnLikeButton() {
+    print("LikeButton tap on ${movie.title}");
   }
 }

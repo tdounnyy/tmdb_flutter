@@ -55,7 +55,7 @@ class PersonDetailPageState extends State<PersonDetailPage> {
                             Text(GenderHelper.getGenderString(_person.gender)),
                             Text(_person.birthday ?? ""),
                             Text("🔥${_person.popularity.toString()}"),
-                            LikeButton(true),
+                            LikeButton(true, _tapOnLikeButton),
                           ],
                         )
                       ],
@@ -82,5 +82,9 @@ class PersonDetailPageState extends State<PersonDetailPage> {
   void _fetchPersonById(int personId) async {
     _person = await PersonRepo.instance().personById(personId);
     setState(() {});
+  }
+
+  void _tapOnLikeButton() {
+    print("LikeButton tap on ${_person.name}");
   }
 }

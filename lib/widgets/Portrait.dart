@@ -14,42 +14,43 @@ class Portrait extends StatelessWidget {
     var profileUrl = ImageRepo.instance().buildImageUrl(person.profilePath);
     return Container(
       width: 100,
-      child: Stack(children: <Widget>[
-        Column(
-          children: <Widget>[
-            Stack(
-              children: <Widget>[
-                Card(
-                  clipBehavior: Clip.antiAlias,
-                  child: CachedNetworkImage(
-                    imageUrl: profileUrl,
+      child: GestureDetector(
+        onTap: () => _tapOnPortrait(context),
+        child: Stack(children: <Widget>[
+          Column(
+            children: <Widget>[
+              Stack(
+                children: <Widget>[
+                  Card(
+                    clipBehavior: Clip.antiAlias,
+                    child: CachedNetworkImage(
+                      imageUrl: profileUrl,
+                    ),
                   ),
-                ),
-                LikeButton(true),
-              ],
-            ),
-            Expanded(
-              child: Text(
-                person.name,
-                textAlign: TextAlign.center,
-                maxLines: 2,
-                overflow: TextOverflow.ellipsis,
+                  LikeButton(true, _tapOnLikeButton),
+                ],
               ),
-            ),
-          ],
-        ),
-        Material(
-          color: Colors.transparent,
-          child: InkWell(
-            onTap: () => _tapOnPortrait(context),
+              Expanded(
+                child: Text(
+                  person.name,
+                  textAlign: TextAlign.center,
+                  maxLines: 2,
+                  overflow: TextOverflow.ellipsis,
+                ),
+              ),
+            ],
           ),
-        )
-      ]),
+        ]),
+      ),
     );
   }
 
   void _tapOnPortrait(BuildContext context) {
     print("tapOnPortrait() ${person.name}");
     Navigator.of(context).pushNamed('/personDetail', arguments: person.id);
+  }
+
+  void _tapOnLikeButton() {
+    print("LikeButton tap on ${person.name}");
   }
 }
