@@ -9,7 +9,7 @@ class PortraitGallery extends StatelessWidget {
   PortraitGallery(this.galleryTitle, this.peopleList);
 
   final String galleryTitle;
-  final List<People> peopleList;
+  final List<Person> peopleList;
   static const int MAX_PORTRAIT = 9;
   static const double PORTRAIT_HEIGHT = 180;
 

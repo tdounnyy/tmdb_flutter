@@ -1,28 +1,40 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'People.dart';
+part of 'Person.dart';
 
 // **************************************************************************
 // JsonSerializableGenerator
 // **************************************************************************
 
-People _$PeopleFromJson(Map<String, dynamic> json) {
+Person _$PersonFromJson(Map<String, dynamic> json) {
   $checkKeys(json, requiredKeys: const ['id']);
-  return People(
+  return Person(
     id: json['id'] as int,
     name: json['name'] as String,
     profilePath: json['profile_path'] as String,
     adult: json['adult'] as bool,
     gender: json['gender'] as int,
+    birthday: json['birthday'] as String,
+    department: json['known_for_department'] as String,
+    deathday: json['deathday'] as String,
+    biography: json['biography'] as String,
+    popularity: (json['popularity'] as num)?.toDouble(),
+    birthPlace: json['place_of_birth'] as String,
   );
 }
 
-Map<String, dynamic> _$PeopleToJson(People instance) => <String, dynamic>{
+Map<String, dynamic> _$PersonToJson(Person instance) => <String, dynamic>{
       'id': instance.id,
       'name': instance.name,
       'profile_path': instance.profilePath,
       'adult': instance.adult,
       'gender': instance.gender,
+      'birthday': instance.birthday,
+      'known_for_department': instance.department,
+      'deathday': instance.deathday,
+      'biography': instance.biography,
+      'popularity': instance.popularity,
+      'place_of_birth': instance.birthPlace,
     };
 
 Cast _$CastFromJson(Map<String, dynamic> json) {
@@ -37,6 +49,12 @@ Cast _$CastFromJson(Map<String, dynamic> json) {
     profilePath: json['profile_path'] as String,
     adult: json['adult'] as bool,
     gender: json['gender'] as int,
+    birthday: json['birthday'] as String,
+    department: json['known_for_department'] as String,
+    deathday: json['deathday'] as String,
+    biography: json['biography'] as String,
+    popularity: (json['popularity'] as num)?.toDouble(),
+    birthPlace: json['place_of_birth'] as String,
   );
 }
 
@@ -46,6 +64,12 @@ Map<String, dynamic> _$CastToJson(Cast instance) => <String, dynamic>{
       'profile_path': instance.profilePath,
       'adult': instance.adult,
       'gender': instance.gender,
+      'birthday': instance.birthday,
+      'known_for_department': instance.department,
+      'deathday': instance.deathday,
+      'biography': instance.biography,
+      'popularity': instance.popularity,
+      'place_of_birth': instance.birthPlace,
       'cast_id': instance.castId,
       'character': instance.character,
       'credit_id': instance.creditId,

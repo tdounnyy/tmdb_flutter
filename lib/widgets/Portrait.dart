@@ -6,7 +6,7 @@ import 'package:tmdb/repo/repos.dart';
 class Portrait extends StatelessWidget {
   Portrait(this.people);
 
-  final People people;
+  final Person people;
 
   @override
   Widget build(BuildContext context) {
