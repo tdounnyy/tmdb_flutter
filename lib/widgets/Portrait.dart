@@ -1,7 +1,9 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:tmdb/entity/entities.dart';
 import 'package:tmdb/repo/repos.dart';
+import 'package:tmdb/state/FavoritePersonModel.dart';
 import 'package:tmdb/widgets/widgets.dart';
 
 class Portrait extends StatelessWidget {
@@ -27,7 +29,11 @@ class Portrait extends StatelessWidget {
                       imageUrl: profileUrl,
                     ),
                   ),
-                  LikeButton(true, _tapOnLikeButton),
+                  Consumer<FavoritePersonModel>(
+                    builder: (context, likeModel, _) => LikeButton(
+                        likeModel.isFavorite(person.id),
+                        () => _tapOnLikeButton(context)),
+                  ),
                 ],
               ),
               Expanded(
@@ -50,7 +56,8 @@ class Portrait extends StatelessWidget {
     Navigator.of(context).pushNamed('/personDetail', arguments: person.id);
   }
 
-  void _tapOnLikeButton() {
-    print("LikeButton tap on ${person.name}");
+  void _tapOnLikeButton(BuildContext context) {
+    Provider.of<FavoritePersonModel>(context, listen: false)
+        .toggleFavoritePerson(person.id);
   }
 }

@@ -1,7 +1,9 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:tmdb/entity/entities.dart';
 import 'package:tmdb/repo/repos.dart';
+import 'package:tmdb/state/FavoritePersonModel.dart';
 import 'package:tmdb/util/GenderHelper.dart';
 import 'package:tmdb/widgets/widgets.dart';
 
@@ -55,7 +57,11 @@ class PersonDetailPageState extends State<PersonDetailPage> {
                             Text(GenderHelper.getGenderString(_person.gender)),
                             Text(_person.birthday ?? ""),
                             Text("🔥${_person.popularity.toString()}"),
-                            LikeButton(true, _tapOnLikeButton),
+                            Consumer<FavoritePersonModel>(
+                              builder: (context, model, child) => LikeButton(
+                                  model.isFavorite(_person.id),
+                                  () => _tapOnLikeButton(context)),
+                            )
                           ],
                         )
                       ],
@@ -84,7 +90,7 @@ class PersonDetailPageState extends State<PersonDetailPage> {
     setState(() {});
   }
 
-  void _tapOnLikeButton() {
-    print("LikeButton tap on ${_person.name}");
+  void _tapOnLikeButton(BuildContext context) {
+    Provider.of<FavoritePersonModel>(context).toggleFavoritePerson(_person.id);
   }
 }

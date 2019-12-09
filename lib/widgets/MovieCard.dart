@@ -48,7 +48,7 @@ class MovieCard extends StatelessWidget {
                           "🔥 ${movie.popularity.toString()}",
                         ),
                         Consumer<FavoriteMovieModel>(
-                          builder: (context, likeModel, child) => LikeButton(
+                          builder: (context, likeModel, _) => LikeButton(
                               likeModel.isFavorite(movie.id),
                               () => _tapOnLikeButton(context)),
                         ),

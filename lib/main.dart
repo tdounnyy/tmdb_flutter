@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:tmdb/persist/FavoritePersist.dart';
 import 'package:tmdb/state/FavoriteMovieModel.dart';
+import 'package:tmdb/state/FavoritePersonModel.dart';
 
 import 'pages/pages.dart';
 
@@ -14,8 +15,11 @@ import 'pages/pages.dart';
  * - Search movie & people
  * - Search filter
  */
-void main() => runApp(ChangeNotifierProvider(
-      create: (context) => FavoriteMovieModel(),
+void main() => runApp(MultiProvider(
+      providers: [
+        ChangeNotifierProvider(create: (context) => FavoriteMovieModel()),
+        ChangeNotifierProvider(create: (context) => FavoritePersonModel()),
+      ],
       child: MyApp(),
     ));
 
