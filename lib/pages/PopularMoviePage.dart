@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:tmdb/entity/entities.dart';
+import 'package:tmdb/persist/FavoritePersist.dart';
 import 'package:tmdb/repo/repos.dart';
 import 'package:tmdb/widgets/widgets.dart';
 

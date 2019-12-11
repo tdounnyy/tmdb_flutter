@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:tmdb/entity/entities.dart';
+import 'package:tmdb/persist/FavoritePersist.dart';
 
 import 'pages/pages.dart';
 
@@ -17,6 +17,8 @@ void main() => runApp(MyApp());
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    // TODO: running on UI thread?
+    FavoritePersist.instance();
     return MaterialApp(
       title: 'TMDB',
       theme: ThemeData(
