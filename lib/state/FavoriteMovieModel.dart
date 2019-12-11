@@ -1,17 +1,18 @@
 import 'package:flutter/widgets.dart';
+import 'package:tmdb/persist/FavoritePersist.dart';
 
 class FavoriteMovieModel extends ChangeNotifier {
-  List<num> favorites = new List();
+  var persist = FavoritePersist.instance();
 
   bool isFavorite(num movieId) {
-    return favorites.contains(movieId);
+    return persist.isFavoriteMovie(movieId);
   }
 
   void toggleFavoriteMovie(num movieId) {
     if (isFavorite(movieId)) {
-      favorites.remove(movieId);
+      persist.removeFavoriteMovie(movieId);
     } else {
-      favorites.add(movieId);
+      persist.addFavoriteMovie(movieId);
     }
     notifyListeners();
   }

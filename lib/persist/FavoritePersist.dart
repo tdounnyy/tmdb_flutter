@@ -43,9 +43,23 @@ class FavoritePersist {
     }
   }
 
+  void removeFavoriteMovie(int id) {
+    if (isFavoriteMovie(id)) {
+      favoriteMovies.remove(id);
+      writeFavoritesToDisk(KEY_FAVORITE_MOVIES, favoriteMovies);
+    }
+  }
+
   void addFavoritePerson(int id) {
     if (!isFavoritePerson(id)) {
       favoritePeople.add(id);
+      writeFavoritesToDisk(KEY_FAVORITE_PEOPLE, favoritePeople);
+    }
+  }
+
+  void removeFavoritePerson(int id) {
+    if (isFavoritePerson(id)) {
+      favoritePeople.remove(id);
       writeFavoritesToDisk(KEY_FAVORITE_PEOPLE, favoritePeople);
     }
   }
