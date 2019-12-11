@@ -44,7 +44,7 @@ class MovieDetailPageState extends State<MovieDetailPage> {
       body: Container(
         color: Colors.white,
         child: _movie == null
-            ? EmptyView()
+            ? LoadingView()
             : Material(
                 child: Padding(
                   padding: const EdgeInsets.all(8.0),

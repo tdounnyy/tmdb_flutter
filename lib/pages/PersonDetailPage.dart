@@ -36,7 +36,7 @@ class PersonDetailPageState extends State<PersonDetailPage> {
         body: Container(
           padding: const EdgeInsets.all(8.0),
           child: _person == null
-              ? EmptyView()
+              ? LoadingView()
               : Column(
                   children: <Widget>[
                     Row(
