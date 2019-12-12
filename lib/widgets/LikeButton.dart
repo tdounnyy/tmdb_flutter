@@ -15,7 +15,7 @@ class LikeButton extends StatelessWidget {
         padding: EdgeInsets.all(2.0),
         child: Icon(
           like ? Icons.favorite : Icons.favorite_border,
-          color: like ? Colors.redAccent : Colors.grey,
+          color: Colors.redAccent,
         ),
       ),
     );
